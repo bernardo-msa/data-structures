@@ -1,5 +1,5 @@
-#ifndef _LLIST
-#define _LLIST
+#ifndef LLIST_H
+#define LLIST_H
 
 #include <stdexcept>
 #include "list.h"
@@ -21,7 +21,7 @@ class Llist: public List<E>{
 
     void removeall()
     {
-        while(head != NULL)
+        while(head != nullptr)
         {
             curr = head;
             head = head->next;
@@ -30,30 +30,30 @@ class Llist: public List<E>{
     }
 
     public:
-    Llist(int size=100) {init();}
+    Llist() {init();}
 
     ~Llist() {removeall();}
 
     void print() const;
 
-    void clear() {removeall(); init();}
+    void clear() override {removeall(); init();}
 
-    void insert(const E& it)
+    void insert (const E& it) override
     {
         curr->next = new Link<E>(it, curr->next);
         if (tail == curr) tail = curr->next;
         cnt++;
     }
 
-    void append(const E& it)
+    void append(const E& it) override
     {
         tail = tail->next = new Link<E>(it, tail->next);
         cnt++;
     }
 
-    E remove() 
+    E remove() override
     {
-        if(curr->next != NULL) {throw std::exception();}
+        if(curr->next == nullptr) {throw std::exception();}
         E it = curr->next->element;
         Link<E>* ltemp = curr->next;
         if (tail==curr->next) tail = curr;
@@ -63,11 +63,11 @@ class Llist: public List<E>{
         return it;
     }
 
-    void moveToStart() {curr=head;}
+    void moveToStart() override {curr=head;}
 
-    void moveToEnd() {curr=tail;}
+    void moveToEnd() override {curr=tail;}
 
-    void prev() 
+    void prev() override
     {
         if (curr == head) return;
         Link<E>* temp = head;
@@ -75,11 +75,11 @@ class Llist: public List<E>{
         curr = temp;
     }
 
-    void next() {if (curr != tail) curr=curr->next;}
+    void next() override {if (curr != tail) curr=curr->next;}
 
-    int length() const {return cnt;}
+    int length() const override {return cnt;}
 
-    int currPos() const 
+    int currPos() const  override
     {
         Link<E>* temp = head;
         int i;
@@ -88,17 +88,17 @@ class Llist: public List<E>{
         return i;
     }
 
-    void moveToPos(int pos)
+    void moveToPos(int pos) override
     {
-        if((pos>=0)&&(pos<=this->lenght())) {throw std::exception();}
+        if((pos<0)||(pos>this->length())) {throw std::exception();}
         curr = head;
         for (int i=0; i<pos; ++i)
         {curr = curr->next;}
     }
 
-    const E& getValue() const
+    const E& getValue() const override
     {
-        if(curr->next) {throw std::exception();}
+        if(curr->next==nullptr) {throw std::exception();}
         return curr->next->element;
     }
 

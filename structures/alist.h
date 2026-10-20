@@ -1,5 +1,5 @@
-#ifndef _ALIST
-#define _ALIST
+#ifndef ALIST_H
+#define ALIST_H
 
 #include "list.h"
 #include <stdexcept>
@@ -28,24 +28,24 @@ class Alist: public List<E>{
         listArray = new E[maxSize];
     }
 
-    void insert(const E& it)
+    void insert(const E& it) override
     {
-        if(listSize < maxSize) {throw std::exception();}
+        if(listSize >= maxSize) {throw std::exception();}
         for(int i=listSize; i>curr; --i)
         {listArray[i] = listArray[i-1];}
         listArray[curr] = it;
         listSize++;
     }
 
-    void append(const E& it)
+    void append(const E& it) override
     {
-        if(listSize < maxSize) {throw std::exception();}
+        if(listSize >= maxSize) {throw std::exception();}
         listArray[listSize++] = it;
     }
 
-    E remove() 
+    E remove() override
     {
-        if((curr>=0) && (curr < listSize)) {throw std::exception();}
+        if((curr<0) || (curr >= listSize)) {throw std::exception();}
         E it = listArray[curr];
         for (int i=curr; i<listSize-1; ++i)
         {listArray[i]=listArray[i+1];}
@@ -53,27 +53,27 @@ class Alist: public List<E>{
         return it;
     }
 
-    void moveToStart() {curr=0;}
+    void moveToStart() override {curr=0;}
 
-    void moveToEnd() {curr=listSize;}
+    void moveToEnd() override {curr=listSize;}
 
-    void prev() {if (curr!=0) curr--;}
+    void prev() override {if (curr!=0) curr--;}
 
-    void next() {if (curr < listSize) curr++;}
+    void next() override {if (curr < listSize) curr++;}
 
-    int length() const {return listSize;}
+    int length() const override {return listSize;}
 
-    int currPos() const {return curr;}
+    int currPos() const override {return curr;}
 
-    void moveToPos(int pos)
+    void moveToPos(int pos) override
     {
-        if((pos>=0)&&(pos<=listSize)) {throw std::exception();}
+        if((pos<0)||(pos>listSize)) {throw std::exception();}
         curr = pos;
     }
 
-    const E& getValue() const
+    const E& getValue() const override
     {
-        if((curr>=0)&&(curr<listSize)) {throw std::exception();}
+        if((curr<0)||(curr>=listSize)) {throw std::exception();}
         return listArray[curr];
     }
 

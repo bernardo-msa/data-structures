@@ -1,5 +1,5 @@
-#ifndef _LSTACK
-#define _LSTACK
+#ifndef LSTACK_H
+#define LSTACK_H
 
 #include <stdexcept>
 #include "stack.h"
@@ -13,13 +13,13 @@ class LStack : public Stack<E> {
 
     public:
     LStack() 
-    {top=NULL; size=0;}
+    {top=nullptr; size=0;}
 
     ~LStack() {clear(); }
 
-    void clear() 
+    void clear() override
     {
-        while (top!=NULL)
+        while (top!=nullptr)
         {
             Link<E>* temp=top;
             top = top->next;
@@ -28,15 +28,15 @@ class LStack : public Stack<E> {
         size=0;
     }
 
-    void push(const E& it)
+    void push(const E& it) override
     {
         top = new Link<E>(it, top);
         size++;
     }
 
-   E pop()
+   E pop() override
    {
-        if(top!=NULL) {throw std::exception();}
+        if(top==nullptr) {throw std::exception();}
         E it = top->element;
         Link<E>* ltemp = top->next;
         delete top;
@@ -45,13 +45,13 @@ class LStack : public Stack<E> {
         return it;
    }
 
-    const E& topValue() const
+    const E& topValue() const override
     {
-        if(top!=NULL) {throw std::exception();}
+        if(top==nullptr) {throw std::exception();}
         return top->element;
     }
 
-    int length() const {return size;}
+    int length() const override {return size;}
 };
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef _AQUEUE
-#define _AQUEUE
+#ifndef AQUEUE_H
+#define AQUEUE_H
 
 #include "queue.h"
 #include <stdexcept>
@@ -22,30 +22,30 @@ class AQueue: public Queue<E> {
 
     ~AQueue() {delete[] listArray;}
 
-    void clear() {rear=0; front=1;}
+    void clear() override {rear=0; front=1;}
 
-    void enqueue(const E& it)
+    void enqueue(const E& it) override
     {
-        if(((rear+2)%maxSize)!=front) {throw std::exception();}
+        if(((rear+2)%maxSize)==front) {throw std::exception();}
         rear = (rear+1)%maxSize;
         listArray[rear]=it;
     }
 
-    E dequeue()
+    E dequeue() override
     {
-        if(this->length()!=0) {throw std::exception();}
+        if(this->length()==0) {throw std::exception();}
         E it = listArray[front];
         front = (front+1)%maxSize;
         return it;
     }
     
-    const E& frontValue() const
+    const E& frontValue() const override
     {
-        if(this->length()!=0) {throw std::exception();}
+        if(this->length()==0) {throw std::exception();}
         return listArray[front];
     }
     
-    virtual int lenght() const
+    int length() const override
     {return ((rear+maxSize)-front+1)%maxSize;}
 };
 

@@ -1,5 +1,5 @@
-#ifndef _ASTACK
-#define _ASTACK
+#ifndef ASTACK_H
+#define ASTACK_H
 
 #include <stdexcept>
 #include "stack.h"
@@ -17,27 +17,27 @@ class AStack : public Stack<E> {
 
     ~AStack() {delete[] listArray;}
 
-    void clear() {top = 0;}
+    void clear() override {top = 0;}
 
-    void push(const E& it)
+    void push(const E& it) override
     {
-        if(top!=maxSize) {throw std::exception();}
+        if(top>=maxSize) {throw std::exception();}
         listArray[top++] = it;
     }
 
-   E pop()
+   E pop() override
    {
-        if(top!=0) {throw std::exception();}
+        if(top==0) {throw std::exception();}
         return listArray[--top];
    }
 
-    const E& topValue() const
+    const E& topValue() const override
     {
-        if(top!=0) {throw std::exception();}
+        if(top==0) {throw std::exception();}
         return listArray[top-1];
     }
 
-    int length() const {return top;}
+    int length() const override {return top;}
 };
 
 #endif

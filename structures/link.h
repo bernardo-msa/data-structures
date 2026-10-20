@@ -1,5 +1,5 @@
-#ifndef _LINK
-#define _LINK
+#ifndef LINK_H
+#define LINK_H
 
 template<typename E>
 class Link {
@@ -7,9 +7,10 @@ class Link {
     E element;
     Link *next;
 
-    Link(const E& elemval, Link* nextval=nullptr)
-    {element = elemval; next = nextval;}
-    Link(Link* nextval=nullptr) {next=nextval;}
+    Link(const E& elemval, Link* nextval = nullptr)
+        : element(elemval), next(nextval) {}
+    Link(Link* nextval = nullptr)
+        : next(nextval) {}
 };
 
 

@@ -1,5 +1,5 @@
-#ifndef _LIST
-#define _LIST
+#ifndef LIST_H
+#define LIST_H
 
 template<typename E>
 class List {
@@ -23,8 +23,8 @@ class List {
     virtual void prev() = 0;
     virtual void next() = 0;
 
-    virtual int length() = 0;
-    virtual int currPos() = 0;
+    virtual int length() const = 0;
+    virtual int currPos() const = 0;
 
     virtual const E& getValue() const = 0;
 };
