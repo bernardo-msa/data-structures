@@ -2,7 +2,7 @@
 #define _LLIST
 
 #include "list.h"
-#include "Lnode.h"
+#include "link.h"
 
 template<typename E>
 class Llist: public List{
