@@ -1,10 +1,11 @@
 #ifndef _ASTACK
 #define _ASTACK
 
+#include <stdexcept>
 #include "stack.h"
 
 template <typename E>
-class AStack : public Stack {
+class AStack : public Stack<E> {
     private:
     int maxSize;
     int top;

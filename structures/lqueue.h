@@ -6,7 +6,7 @@
 #include "link.h"
 
 template<typename E>
-class LQueue: public Queue {
+class LQueue: public Queue<E> {
     private:
     Link<E>* front;
     Link<E>* rear;
@@ -19,7 +19,7 @@ class LQueue: public Queue {
         front = rear = new Link<E>();
     }
 
-    ~AQueue() {clear(); delete front;}
+    ~LQueue() {clear(); delete front;}
 
     void clear() 
     {

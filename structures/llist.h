@@ -6,16 +6,16 @@
 #include "link.h"
 
 template<typename E>
-class Llist: public List{
+class Llist: public List<E>{
     private:
-    Link<e> *head;
-    Link<e> *tail;
-    Link<e> *curr;
+    Link<E> *head;
+    Link<E> *tail;
+    Link<E> *curr;
     int cnt;
 
     void init() 
     {
-        curr = tail = head = new Link<e>;
+        curr = tail = head = new Link<E>;
         cnt = 0;
     }
 
@@ -90,7 +90,7 @@ class Llist: public List{
 
     void moveToPos(int pos)
     {
-        if(pos>=0)&&(pos<=listSize) {throw std::exception();}
+        if((pos>=0)&&(pos<=this->lenght())) {throw std::exception();}
         curr = head;
         for (int i=0; i<pos; ++i)
         {curr = curr->next;}

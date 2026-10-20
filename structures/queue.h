@@ -15,7 +15,7 @@ class Queue {
 
     virtual void enqueue()=0;
 
-    virtual void E dequeue()=0;
+    virtual E dequeue()=0;
 
     virtual const E& frontValue() const=0;
 

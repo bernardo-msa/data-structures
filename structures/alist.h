@@ -2,9 +2,10 @@
 #define _ALIST
 
 #include "list.h"
+#include <stdexcept>
 
 template<typename E>
-class Alist: public List{
+class Alist: public List<E>{
     private:
     int maxSize;
     int listSize;
@@ -30,7 +31,7 @@ class Alist: public List{
     void insert(const E& it)
     {
         if(listSize < maxSize) {throw std::exception();}
-        for(int i=ListSize; i>curr; --i)
+        for(int i=listSize; i>curr; --i)
         {listArray[i] = listArray[i-1];}
         listArray[curr] = it;
         listSize++;

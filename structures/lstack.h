@@ -6,7 +6,7 @@
 #include "link.h"
 
 template <typename E>
-class LStack : public Stack {
+class LStack : public Stack<E> {
     private:
     Link<E>* top;
     int size;   

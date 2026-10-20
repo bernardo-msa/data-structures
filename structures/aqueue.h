@@ -2,9 +2,10 @@
 #define _AQUEUE
 
 #include "queue.h"
+#include <stdexcept>
 
 template<typename E>
-class AQueue: public Queue {
+class AQueue: public Queue<E> {
     private:
     int maxSize;
     int front;
@@ -32,18 +33,18 @@ class AQueue: public Queue {
 
     E dequeue()
     {
-        if(length()!=0) {throw std::exception();}
+        if(this->length()!=0) {throw std::exception();}
         E it = listArray[front];
         front = (front+1)%maxSize;
         return it;
     }
-
+    
     const E& frontValue() const
     {
-        if(length()!=0) {throw std::exception();}
+        if(this->length()!=0) {throw std::exception();}
         return listArray[front];
     }
-
+    
     virtual int lenght() const
     {return ((rear+maxSize)-front+1)%maxSize;}
 };
