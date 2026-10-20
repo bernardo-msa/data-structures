@@ -47,7 +47,7 @@ class Alist: public List{
         Assert((curr>=0) && (curr < listSize), "No element");
         else
         {   E it = listArray[curr];
-            for (int i=0; i<listSize-1; ++i)
+            for (int i=curr; i<listSize-1; ++i)
             {listArray[i]=listArray[i+1];}
             --listSize;
             return it;
