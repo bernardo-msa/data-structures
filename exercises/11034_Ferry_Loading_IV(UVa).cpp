@@ -5,23 +5,23 @@ using namespace std;
 
 #define endl '\n'
 
-template <typename E>
-class Stack {
+template<typename E>
+class Queue {
     private:
-    void operator=(const Stack&){}
-    Stack(const Stack&) {}
+    void operator=(const Queue&){}
+    Queue(const Queue&){}
 
     public:
-    Stack() {};
-    virtual ~Stack() {}
+    Queue() {}
+    virtual ~Queue() {}
 
     virtual void clear()=0;
 
-    virtual void push(const E& it)=0;
+    virtual void enqueue(const E& it)=0;
 
-    virtual E pop()=0;
+    virtual E dequeue()=0;
 
-    virtual const E& topValue() const=0;
+    virtual const E& frontValue() const=0;
 
     virtual int length() const=0;
 };
@@ -32,58 +32,66 @@ class Link {
     E element;
     Link *next;
 
-    Link(const E& elemval, Link* nextval=NULL)
+    Link(const E& elemval, Link* nextval=nullptr)
     {element = elemval; next = nextval;}
-    Link(Link* nextval=NULL) {next=nextval;}
+    Link(Link* nextval=nullptr) {next=nextval;}
 };
 
-template <typename E>
-class LStack : public Stack<E> {
+template<typename E>
+class LQueue: public Queue<E> {
     private:
-    Link<E>* top;
-    int size;   
+    Link<E>* front;
+    Link<E>* rear;
+    int size;
 
     public:
-    LStack() 
-    {top=NULL; size=0;}
+    LQueue()
+    {
+        size=0;
+        front = rear = new Link<E>();
+    }
 
-    ~LStack() {clear(); }
+    ~LQueue() {clear(); delete front;}
 
     void clear() 
     {
-        while (top!=NULL)
+        while(front->next!=NULL)
         {
-            Link<E>* temp=top;
-            top = top->next;
-            delete temp;
+            rear = front;
+            delete rear;
         }
-        size=0;
+        rear = front;
+        front = front->next;
+        size = 0;
     }
 
-    void push(const E& it)
+    void enqueue(const E& it)
     {
-        top = new Link<E>(it, top);
+        rear->next = new Link<E>(it, NULL);
+        rear = rear->next;
         size++;
     }
 
-   E pop()
-   {
-        if(top!=NULL) {throw std::exception();}
-        E it = top->element;
-        Link<E>* ltemp = top->next;
-        delete top;
-        top = ltemp;
+    E dequeue()
+    {
+        if(size!=0) {throw std::exception();}
+        E it = front->next->element;
+        Link<E>* ltemp = front->next;
+        front->next = ltemp->next;
+        if (rear==ltemp) rear = front;
+        delete ltemp;
         size--;
         return it;
-   }
-
-    const E& topValue() const
-    {
-        if(top!=NULL) {throw std::exception();}
-        return top->element;
     }
 
-    int length() const {return size;}
+    const E& frontValue() const
+    {
+        if(size!=0) {throw std::exception();}
+        return front->next->element;
+    }
+
+    virtual int length() const
+    {return size;}
 };
 
 int main()
@@ -93,7 +101,7 @@ int main()
 
     for (int i=0; i<t; ++i)
     {
-        LStack<int> right, left;
+        LQueue <int> right, left;
         int l, m, total=0, qnt=0;
         cin >> l >> m;
 
@@ -106,17 +114,17 @@ int main()
 
             if (aux=="right")
             {
-                right.push(aux1);
+                right.enqueue(aux1);
             }
-            else {left.push(aux1);}
+            else {left.enqueue(aux1);}
         }
 
         while ((right.length()!=0)&&(left.length()!=0))
         {
             while(left.length()!=0)
             {
-                if (total+left.topValue() > l) {break;}
-                total += left.pop();
+                if (total+left.frontValue() > l) {break;}
+                total += left.dequeue();
             }
 
             total = 0;
@@ -124,8 +132,8 @@ int main()
 
             while(right.length()!=0)
             {
-                if (total+right.topValue() > l) {break;}
-                total += right.pop();
+                if (total+right.frontValue() > l) {break;}
+                total += right.dequeue();
             }
         }
 

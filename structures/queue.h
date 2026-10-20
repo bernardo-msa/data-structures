@@ -13,7 +13,7 @@ class Queue {
 
     virtual void clear()=0;
 
-    virtual void enqueue()=0;
+    virtual void enqueue(const E& it)=0;
 
     virtual E dequeue()=0;
 

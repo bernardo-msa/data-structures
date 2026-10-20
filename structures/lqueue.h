@@ -58,7 +58,7 @@ class LQueue: public Queue<E> {
         return front->next->element;
     }
 
-    virtual int lenght() const
+    virtual int length() const
     {return size;}
 };
 

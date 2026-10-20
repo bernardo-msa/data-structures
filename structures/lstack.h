@@ -21,7 +21,7 @@ class LStack : public Stack<E> {
     {
         while (top!=NULL)
         {
-            Link<E> temp=top;
+            Link<E>* temp=top;
             top = top->next;
             delete temp;
         }
