@@ -45,13 +45,11 @@ class Alist: public List{
     E remove() 
     {
         Assert((curr>=0) && (curr < listSize), "No element");
-        else
-        {   E it = listArray[curr];
-            for (int i=curr; i<listSize-1; ++i)
-            {listArray[i]=listArray[i+1];}
-            --listSize;
-            return it;
-        }
+        E it = listArray[curr];
+        for (int i=curr; i<listSize-1; ++i)
+        {listArray[i]=listArray[i+1];}
+        --listSize;
+        return it;
     }
 
     void moveToStart() {curr=0;}
