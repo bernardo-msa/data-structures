@@ -1,6 +1,7 @@
 #ifndef _LQUEUE
 #define _LQUEUE
 
+#include <stdexcept>
 #include "queue.h"
 #include "link.h"
 
@@ -41,7 +42,7 @@ class LQueue: public Queue {
 
     E dequeue()
     {
-        Assert(size!=0, "Queue is empty");
+        if(size!=0) {throw std::exception();}
         E it = front->next->element;
         Link<E>* ltemp = front->next;
         front->next = ltemp->next;
@@ -53,7 +54,7 @@ class LQueue: public Queue {
 
     const E& frontValue() const
     {
-        Assert(size!=0, "Queue is empty");
+        if(size!=0) {throw std::exception();}
         return front->next->element;
     }
 

@@ -20,19 +20,19 @@ class AStack : public Stack {
 
     void push(const E& it)
     {
-        Assert(top!=maxSize, "Stack is full");
+        if(top!=maxSize) {throw std::exception();}
         listArray[top++] = it;
     }
 
    E pop()
    {
-        Assert(top!=0, "Stack is empty");
+        if(top!=0) {throw std::exception();}
         return listArray[--top];
    }
 
     const E& topValue() const
     {
-        Assert(top!=0, "Stack is empty");
+        if(top!=0) {throw std::exception();}
         return listArray[top-1];
     }
 

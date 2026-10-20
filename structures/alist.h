@@ -29,7 +29,7 @@ class Alist: public List{
 
     void insert(const E& it)
     {
-        Assert(listSize < maxSize, "List capacity exceeded");
+        if(listSize < maxSize) {throw std::exception();}
         for(int i=ListSize; i>curr; --i)
         {listArray[i] = listArray[i-1];}
         listArray[curr] = it;
@@ -38,13 +38,13 @@ class Alist: public List{
 
     void append(const E& it)
     {
-        Assert(listSize < maxSize, "List capacity exceeded");
+        if(listSize < maxSize) {throw std::exception();}
         listArray[listSize++] = it;
     }
 
     E remove() 
     {
-        Assert((curr>=0) && (curr < listSize), "No element");
+        if((curr>=0) && (curr < listSize)) {throw std::exception();}
         E it = listArray[curr];
         for (int i=curr; i<listSize-1; ++i)
         {listArray[i]=listArray[i+1];}
@@ -66,13 +66,13 @@ class Alist: public List{
 
     void moveToPos(int pos)
     {
-        Assert ((pos>=0)&&(pos<=listSize), "Pos out of range");
+        if((pos>=0)&&(pos<=listSize)) {throw std::exception();}
         curr = pos;
     }
 
     const E& getValue() const
     {
-        Assert((curr>=0)&&(curr<listSize), "No current element");
+        if((curr>=0)&&(curr<listSize)) {throw std::exception();}
         return listArray[curr];
     }
 

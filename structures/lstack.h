@@ -1,6 +1,7 @@
 #ifndef _LSTACK
 #define _LSTACK
 
+#include <stdexcept>
 #include "stack.h"
 #include "link.h"
 
@@ -35,7 +36,7 @@ class LStack : public Stack {
 
    E pop()
    {
-        Assert(top!=NULL, "Stack is empty");
+        if(top!=NULL) {throw std::exception();}
         E it = top->element;
         Link<E>* ltemp = top->next;
         delete top;
@@ -46,7 +47,7 @@ class LStack : public Stack {
 
     const E& topValue() const
     {
-        Assert(top!=NULL, "Stack is empty");
+        if(top!=NULL) {throw std::exception();}
         return top->element;
     }
 

@@ -1,6 +1,7 @@
 #ifndef _LLIST
 #define _LLIST
 
+#include <stdexcept>
 #include "list.h"
 #include "link.h"
 
@@ -52,7 +53,7 @@ class Llist: public List{
 
     E remove() 
     {
-        Assert(curr->next != NULL, "No element");
+        if(curr->next != NULL) {throw std::exception();}
         E it = curr->next->element;
         Link<E>* ltemp = curr->next;
         if (tail==curr->next) tail = curr;
@@ -89,7 +90,7 @@ class Llist: public List{
 
     void moveToPos(int pos)
     {
-        Assert ((pos>=0)&&(pos<=listSize), "Pos out of range");
+        if(pos>=0)&&(pos<=listSize) {throw std::exception();}
         curr = head;
         for (int i=0; i<pos; ++i)
         {curr = curr->next;}
@@ -97,7 +98,7 @@ class Llist: public List{
 
     const E& getValue() const
     {
-        Assert(curr->next != NULL, "No value");
+        if(curr->next) {throw std::exception();}
         return curr->next->element;
     }
 

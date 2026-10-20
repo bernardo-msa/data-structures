@@ -25,14 +25,14 @@ class AQueue: public Queue {
 
     void enqueue(const E& it)
     {
-        Assert(((rear+2)%maxSize)!=front, "Queue is full");
+        if(((rear+2)%maxSize)!=front) {throw std::exception();}
         rear = (rear+1)%maxSize;
         listArray[rear]=it;
     }
 
     E dequeue()
     {
-        Assert(length()!=0, "Queue is empty");
+        if(length()!=0) {throw std::exception();}
         E it = listArray[front];
         front = (front+1)%maxSize;
         return it;
@@ -40,7 +40,7 @@ class AQueue: public Queue {
 
     const E& frontValue() const
     {
-        Assert(length()!=0, "Queue is empty");
+        if(length()!=0) {throw std::exception();}
         return listArray[front];
     }
 
