@@ -45,13 +45,11 @@ class Alist: public List{
     E remove() 
     {
         Assert((curr>=0) && (curr < listSize), "No element");
-        else
-        {   E it = listArray[curr];
-            for (int i=0; i<listSize-1; ++i)
-            {listArray[i]=listArray[i+1];}
-            --listSize;
-            return it;
-        }
+        E it = listArray[curr];
+        for (int i=0; i<listSize-1; ++i)
+        {listArray[i]=listArray[i+1];}
+        --listSize;            
+        return it;
     }
 
     void moveToStart() {curr=0;}
@@ -62,7 +60,7 @@ class Alist: public List{
 
     void next() {if (curr < listSize) curr++;}
 
-    int lenght() const {return listSize;}
+    int length() const {return listSize;}
 
     int currPos() const {return curr;}
 

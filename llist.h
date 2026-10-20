@@ -2,7 +2,7 @@
 #define _LLIST
 
 #include "list.h"
-#include "Lnode.h"
+#include "link.h"
 
 template<typename E>
 class Llist: public List{
@@ -76,7 +76,7 @@ class Llist: public List{
 
     void next() {if (curr != tail) curr=curr->next;}
 
-    int lenght() const {return cnt;}
+    int length() const {return cnt;}
 
     int currPos() const 
     {
