@@ -32,9 +32,10 @@ class Link {
     E element;
     Link *next;
 
-    Link(const E& elemval, Link* nextval=nullptr)
-    {element = elemval; next = nextval;}
-    Link(Link* nextval=nullptr) {next=nextval;}
+    Link(const E& elemval, Link* nextval = nullptr)
+        : element(elemval), next(nextval) {}
+    Link(Link* nextval = nullptr)
+        : next(nextval) {}
 };
 
 template<typename E>
@@ -53,28 +54,28 @@ class LQueue: public Queue<E> {
 
     ~LQueue() {clear(); delete front;}
 
-    void clear() 
+    void clear() override
     {
         while(front->next!=NULL)
         {
             rear = front;
+            front = front->next;
             delete rear;
         }
         rear = front;
-        front = front->next;
         size = 0;
     }
 
-    void enqueue(const E& it)
+    void enqueue(const E& it) override
     {
         rear->next = new Link<E>(it, NULL);
         rear = rear->next;
         size++;
     }
 
-    E dequeue()
+    E dequeue() override
     {
-        if(size!=0) {throw std::exception();}
+        if(size==0) {throw std::exception();}
         E it = front->next->element;
         Link<E>* ltemp = front->next;
         front->next = ltemp->next;
@@ -84,13 +85,13 @@ class LQueue: public Queue<E> {
         return it;
     }
 
-    const E& frontValue() const
+    const E& frontValue() const override
     {
-        if(size!=0) {throw std::exception();}
+        if(size==0) {throw std::exception();}
         return front->next->element;
     }
 
-    virtual int length() const
+    int length() const override
     {return size;}
 };
 
@@ -104,6 +105,7 @@ int main()
         LQueue <int> right, left;
         int l, m, total=0, qnt=0;
         cin >> l >> m;
+        l*=100;
 
         for (int i=0; i<m; ++i)
         {
@@ -119,7 +121,7 @@ int main()
             else {left.enqueue(aux1);}
         }
 
-        while ((right.length()!=0)&&(left.length()!=0))
+        while ((right.length()!=0)||(left.length()!=0))
         {
             while(left.length()!=0)
             {
@@ -135,9 +137,13 @@ int main()
                 if (total+right.frontValue() > l) {break;}
                 total += right.dequeue();
             }
+            if (total!=0 || left.length()!=0)
+            {
+                total = 0;
+                ++qnt;
+            }
         }
 
         cout << qnt << endl;
     }
 }
-
