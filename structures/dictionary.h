@@ -14,7 +14,7 @@ class Dictionary {
 
     virtual E remove(const K& key) = 0;
 
-    virtual E find(const K& key) const = 0;
+    virtual E* find(const K& key) const = 0;
 
     virtual int size() const = 0;
 };
